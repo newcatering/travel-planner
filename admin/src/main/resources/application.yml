@@ -1,0 +1,10 @@
+#admin spring config
+debug: true
+server:
+  port: 8081
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: newcatering
+    url: jdbc:mariadb://54.180.107.191:3305/trip
