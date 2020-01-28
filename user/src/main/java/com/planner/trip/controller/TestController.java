@@ -1,8 +1,10 @@
 package com.planner.trip.controller;
 
 import com.planner.trip.code.Auth;
+import com.planner.trip.code.ResultCode;
 import com.planner.trip.config.security.JwtManager;
 import com.planner.trip.model.JwtAuthenticationResponse;
+import com.planner.trip.model.Result;
 import com.planner.trip.model.User;
 import com.planner.trip.repository.UserRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -69,5 +71,11 @@ public class TestController {
         System.out.println(user.get().getAuth().toString());
         System.out.println(user.get().getAuth().name());
         return ResponseEntity.ok("tt");
+    }
+
+    @GetMapping("/data/swag")
+    public Result tt(User users){
+        log.debug(users.getEmail());
+        return new Result(ResultCode.SUCCESS,users.getEmail());
     }
 }

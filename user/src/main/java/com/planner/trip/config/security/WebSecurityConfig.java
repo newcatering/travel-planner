@@ -67,10 +67,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authenticationEntryPoint(customAuthEntryPoint)
                     .and()
                 .authorizeRequests()
-                .antMatchers("/test").permitAll()
-                .antMatchers("/api/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
+                    .antMatchers("/test").permitAll()
+                    .antMatchers("/api/**").permitAll()
+                    .antMatchers("/v2/api-docs",
+                            "/swagger-ui.html",
+                            "/webjars/springfox-swagger-ui/**",
+                            "/swagger-resources/**").permitAll()
+
+                    .anyRequest().authenticated()
+                    .and()
                 .formLogin().disable();
         //https://luvstudy.tistory.com/79
         // OncePerRequestFilter 상속한 필터는 빈설정하면 자동으로 filter 등록됨
