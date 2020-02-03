@@ -1,10 +1,7 @@
 package com.planner.trip.model;
 
 import com.planner.trip.code.DestinationType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,8 +12,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
-@Table("DESTINATION")
+@Table(name="DESTINATION")
 public class Destination {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +24,10 @@ public class Destination {
     private Long planIdx;// 계획표 ID
     private String name;//상호명
 
-    @Column(columnDefinition ="DECIMAL(6,10)")
+    @Column(columnDefinition ="DECIMAL(16,10)")
     private BigDecimal latitude;//위도
 
-    @Column(columnDefinition ="DECIMAL(6,10)")
+    @Column(columnDefinition ="DECIMAL(16,10)")
     private BigDecimal longitude;//경도
 
     private String addr;//주소
@@ -42,5 +40,5 @@ public class Destination {
 
     private DestinationType type;//방문지 타입
 
-    private Integer order; // 여행 순서
+    private Integer days; // 여행 일차
 }

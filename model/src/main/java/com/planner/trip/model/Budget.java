@@ -1,9 +1,6 @@
 package com.planner.trip.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,7 +9,8 @@ import javax.persistence.*;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table("BUDGET")
+@AllArgsConstructor
+@Table(name="BUDGET")
 public class Budget {
 
     @Id

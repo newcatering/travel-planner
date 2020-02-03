@@ -1,18 +1,16 @@
 package com.planner.trip.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Builder
 @Setter
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table("ITEM")
+@Table(name="ITEM")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +18,6 @@ public class Item {
     @Column(name="dest_idx")
     private Long destIdx;
     private String title;
-    private Boolean check;
+    private Boolean confirm;
 
 }
