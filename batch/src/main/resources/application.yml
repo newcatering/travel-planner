@@ -1,0 +1,8 @@
+#admin spring config
+#debug: true
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: newcatering
+    url: jdbc:mariadb://54.180.107.191:3305/batch

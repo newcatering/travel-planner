@@ -19,6 +19,7 @@
         <module>user</module>
         <module>admin</module>
         <module>model</module>
+        <module>batch</module>
     </modules>
 
     <properties>
