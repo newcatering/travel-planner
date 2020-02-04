@@ -1,4 +1,4 @@
-package com.planner.trip.model;
+package com.planner.trip.payload;
 
 import lombok.Getter;
 import lombok.Setter;

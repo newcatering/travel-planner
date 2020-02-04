@@ -7,21 +7,20 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
-@Builder
 @Getter
-@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="DESTINATION")
 public class Destination {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
     @Column(name = "plan_idx")
     private Long planIdx;// 계획표 ID
+
     private String name;//상호명
 
     @Column(columnDefinition ="DECIMAL(16,10)")
@@ -41,4 +40,16 @@ public class Destination {
     private DestinationType type;//방문지 타입
 
     private Integer days; // 여행 일차
+
+    @Builder
+    public Destination(String name, BigDecimal latitude, BigDecimal longitude, String addr, String subAddr, LocalDateTime scheduledTime, DestinationType type, Integer order) {
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.addr = addr;
+        this.subAddr = subAddr;
+        this.scheduledTime = scheduledTime;
+        this.type = type;
+        this.days = order;
+    }
 }
