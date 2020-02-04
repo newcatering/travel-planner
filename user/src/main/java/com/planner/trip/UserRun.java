@@ -1,10 +1,10 @@
 package com.planner.trip;
 
-import com.planner.trip.config.security.JwtManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableJpaAuditing
 @SpringBootApplication
 public class UserRun {
     public static void main(String[] args) {
