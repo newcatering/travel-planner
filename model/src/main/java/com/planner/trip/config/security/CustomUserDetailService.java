@@ -3,7 +3,6 @@ package com.planner.trip.config.security;
 import com.planner.trip.model.User;
 import com.planner.trip.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
