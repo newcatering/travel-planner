@@ -20,27 +20,33 @@ public class AddrTasklet implements Tasklet {
     AddressRepo addressRepo;
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-        FlatFileItemReader<Address> itemReader = new FlatFileItemReader<>();
-        itemReader.setEncoding("UTF-8");
-        itemReader.setResource(new FileSystemResource("C:\\dev\\sigungu_data\\entrc_chungbuk.txt"));
-        DefaultLineMapper<Address> lineMapper = new DefaultLineMapper<>();
-        //DelimitedLineTokenizer defaults to comma as its delimiter
-        lineMapper.setLineTokenizer(new DelimitedLineTokenizer("|"));
-        lineMapper.setFieldSetMapper(new AddrMapper());
-        itemReader.setLineMapper(lineMapper);
-        itemReader.open(new ExecutionContext());
+        String[] fileName = {"entrc_gangwon","entrc_gwangju","entrc_gyeongbuk","entrc_gyeongnam"};
+        for(String name : fileName){
+            FlatFileItemReader<Address> itemReader = new FlatFileItemReader<>();
+            itemReader.setEncoding("UTF-8");
+            itemReader.setResource(new FileSystemResource("C:\\dev\\sigungu_data\\"+name+".txt"));
+            DefaultLineMapper<Address> lineMapper = new DefaultLineMapper<>();
+            //DelimitedLineTokenizer defaults to comma as its delimiter
 
-        while(true){
-            Address addr = itemReader.read();
-            if(addr == null){
-                break;
+
+            lineMapper.setLineTokenizer(new DelimitedLineTokenizer("|"));
+            lineMapper.setFieldSetMapper(new AddrMapper());
+            itemReader.setLineMapper(lineMapper);
+            itemReader.open(new ExecutionContext());
+            int i= 0;
+            while(true){
+                Address addr = itemReader.read();
+                if(addr == null){
+                    break;
+                }
+                log.info("no - " + i++ + addr.toString());
+                if(addressRepo.existsByDong(addr.getDong()) == true){
+                    continue;
+                }
+                addressRepo.save(addr);
             }
-            log.info(addr.toString());
-            if(addressRepo.existsByDong(addr.getDong()) == true){
-                continue;
-            }
-            addressRepo.save(addr);
         }
+
 
         return RepeatStatus.FINISHED;
     }

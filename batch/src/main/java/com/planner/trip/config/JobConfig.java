@@ -43,7 +43,7 @@ public class JobConfig {
 
     @Bean
     public Job testJob() {
-        return jobBuilderFactory.get("testJob2")
+        return jobBuilderFactory.get("entrc_gangwon")
                 .start(simpleStep1())
                 .build();
     }
