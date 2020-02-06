@@ -1,37 +1,56 @@
 package com.planner.trip.controller;
 
-import com.planner.trip.payload.ApiResponse;
+import com.planner.trip.code.ResultCode;
+import com.planner.trip.payload.JwtAuthenticationResponse;
+import com.planner.trip.payload.Result;
+import com.planner.trip.payload.SignInRequest;
 import com.planner.trip.payload.SignUpRequest;
-import com.planner.trip.repository.UserRepo;
+import com.planner.trip.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/auth")
 @AllArgsConstructor
+@Log
 public class AuthController {
 
-    private UserRepo userRepo;
+    private UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignUpRequest signUpRequest) {
-        if (userRepo.existsByEmail(signUpRequest.getNickname())) {
-            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
-                    HttpStatus.BAD_REQUEST);
+    public Result registerUser(@RequestBody SignUpRequest dto) {
+        log.info("asdddddddddddddddddddddddddddddddddddd");
+        userService.signUp(dto);
+
+        Result result = Result.builder().
+                code(ResultCode.SUCCESS).
+                data(dto).
+                build();
+
+        return result;
+    }
+
+    @PostMapping("/signin")
+    public Result authenticateUser(@RequestBody SignInRequest dto) {
+        Optional<JwtAuthenticationResponse> jwt = Optional.ofNullable(userService.signIn(dto));
+
+        ResultCode resultCode = ResultCode.UNAUTHORIZED;
+        if(jwt.isPresent()) {
+            resultCode = ResultCode.SUCCESS;
         }
 
-        if (userRepo.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
-                    HttpStatus.BAD_REQUEST);
-        }
+        Result result = Result.builder()
+                .code(resultCode)
+                .data(jwt)
+                .build();
 
-
-        return null;
+        return result;
     }
 
 }
