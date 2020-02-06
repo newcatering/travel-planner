@@ -4,6 +4,7 @@ import com.planner.trip.AddrReader;
 import com.planner.trip.mapper.AddrMapper;
 import com.planner.trip.model.Address;
 import com.planner.trip.task.AddrTasklet;
+import com.planner.trip.task.NaverPlaceTasklet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -43,7 +44,7 @@ public class JobConfig {
 
     @Bean
     public Job testJob() {
-        return jobBuilderFactory.get("entrc_gangwon")
+        return jobBuilderFactory.get("naverPlace_batch14")
                 .start(simpleStep1())
                 .build();
     }
@@ -54,14 +55,18 @@ public class JobConfig {
                 //.<Address, Address>chunk(2)
                 //.reader(flatFileItemReader())
                 //.writer(jpaItemWriter())
-                .tasklet(addrTasklet())
-
+                //.tasklet(addrTasklet())
+                .tasklet(naverPlaceTasklet())
                 .build();
 
     }
     @Bean
     public AddrTasklet addrTasklet(){
         return new AddrTasklet();
+    }
+    @Bean
+    public NaverPlaceTasklet naverPlaceTasklet(){
+        return new NaverPlaceTasklet();
     }
 
 //    @Bean
