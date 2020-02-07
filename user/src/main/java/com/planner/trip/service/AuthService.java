@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @AllArgsConstructor
 @Service
-public class UserService {
+public class AuthService {
 
     private UserRepo userRepo;
 
@@ -30,7 +30,7 @@ public class UserService {
 
     @Transactional
     public void signUp(SignUpRequest dto) {
-        verifyDuplicatedUser(dto.getEmail());
+        verifyDuplicatedNickname(dto.getNickname()); // 닉네임 중복 체크
 
         userRepo.save(User.builder()
                 .email(dto.getEmail())
@@ -41,9 +41,17 @@ public class UserService {
                 .build());
     }
 
-    private void verifyDuplicatedUser(String userEmail) {
-        if (userRepo.existsByEmail(userEmail)) {
-            throw new IllegalArgumentException("중복된 유저입니다.");
+    @Transactional(readOnly = true)
+    public void verifyDuplicatedNickname(String nickname) {
+         if (userRepo.existsByNickname(nickname)) {
+            throw new IllegalArgumentException("중복된 닉네임입니다.");
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public void verifyDuplicatedEmail(String email) {
+        if (userRepo.existsByEmail(email)) {
+            throw new IllegalArgumentException("중복된 이메일입니다.");
         }
     }
 

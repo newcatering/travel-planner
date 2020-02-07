@@ -21,16 +21,16 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @Column(unique = true,length = 60)
+    @Column(unique = true, length = 60, nullable = false)
     private String email;
 
-    @Column(name = "nickname",unique = true,length = 60)
+    @Column(name = "nickname", unique = true, length = 60, nullable = false)
     private String nickname;
 
-    @Column(length = 60)
+    @Column(length = 60, nullable = false)
     private String password;
 
-    @Column(length = 30)
+    @Column(length = 30, nullable = false)
     private String phone;
 
     @Column(length = 30)

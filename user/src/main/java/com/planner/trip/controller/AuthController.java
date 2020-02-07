@@ -5,13 +5,10 @@ import com.planner.trip.payload.JwtAuthenticationResponse;
 import com.planner.trip.payload.Result;
 import com.planner.trip.payload.SignInRequest;
 import com.planner.trip.payload.SignUpRequest;
-import com.planner.trip.service.UserService;
+import com.planner.trip.service.AuthService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -21,12 +18,11 @@ import java.util.Optional;
 @Log
 public class AuthController {
 
-    private UserService userService;
+    private AuthService authService;
 
     @PostMapping("/signup")
     public Result registerUser(@RequestBody SignUpRequest dto) {
-        log.info("asdddddddddddddddddddddddddddddddddddd");
-        userService.signUp(dto);
+        authService.signUp(dto);
 
         Result result = Result.builder().
                 code(ResultCode.SUCCESS).
@@ -38,15 +34,11 @@ public class AuthController {
 
     @PostMapping("/signin")
     public Result authenticateUser(@RequestBody SignInRequest dto) {
-        Optional<JwtAuthenticationResponse> jwt = Optional.ofNullable(userService.signIn(dto));
+        Optional<JwtAuthenticationResponse> jwt = Optional.ofNullable(authService.signIn(dto));
 
-        ResultCode resultCode = ResultCode.UNAUTHORIZED;
-        if(jwt.isPresent()) {
-            resultCode = ResultCode.SUCCESS;
-        }
 
         Result result = Result.builder()
-                .code(resultCode)
+                .code(ResultCode.SUCCESS)
                 .data(jwt)
                 .build();
 
