@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/auth")
 @AllArgsConstructor
-@Log
+@RequestMapping("/auth")
 public class AuthController {
 
     private AuthService authService;
@@ -34,8 +33,7 @@ public class AuthController {
 
     @PostMapping("/signin")
     public Result authenticateUser(@RequestBody SignInRequest dto) {
-        Optional<JwtAuthenticationResponse> jwt = Optional.ofNullable(authService.signIn(dto));
-
+        JwtAuthenticationResponse jwt = authService.signIn(dto);
 
         Result result = Result.builder()
                 .code(ResultCode.SUCCESS)
@@ -46,3 +44,4 @@ public class AuthController {
     }
 
 }
+
