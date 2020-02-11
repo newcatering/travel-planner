@@ -1,7 +1,6 @@
 package com.planner.trip.model;
 
 import com.planner.trip.code.Auth;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +10,6 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "USER")
 public class User extends BaseTimeEntity {
@@ -37,4 +34,12 @@ public class User extends BaseTimeEntity {
     //@Enumerated(EnumType.STRING)
     private Auth auth;
 
+    @Builder
+    public User(String email, String nickname, String password, String phone, Auth auth) {
+        this.email = email;
+        this.nickname = nickname;
+        this.password = password;
+        this.phone = phone;
+        this.auth = auth;
+    }
 }
