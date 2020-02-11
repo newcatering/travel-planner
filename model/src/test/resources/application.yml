@@ -1,0 +1,7 @@
+#user spring config
+
+custom:
+  jwt:
+    secret: TestKey
+    expiration: 604800000
+    header: Authorization

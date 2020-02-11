@@ -1,37 +1,45 @@
 package com.planner.trip.model;
 
 import com.planner.trip.code.Auth;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
-@Builder
+
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="USER")
-public class User {
+@Table(name = "USER")
+public class User extends BaseTimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
-    @Column(unique = true,length = 60)
+
+    @Column(unique = true, length = 60, nullable = false)
     private String email;
-    @Column(name = "nickname",unique = true,length = 60)
+
+    @Column(name = "nickname", unique = true, length = 60, nullable = false)
     private String nickname;
-    @Column(length = 60)
+
+    @Column(length = 60, nullable = false)
     private String password;
-    @Column(length = 30)
+
+    @Column(length = 30, nullable = false)
     private String phone;
+
     @Column(length = 30)
     //@Enumerated(EnumType.STRING)
     private Auth auth;
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-    @CreationTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+
+    @Builder
+    public User(String email, String nickname, String password, String phone, Auth auth) {
+        this.email = email;
+        this.nickname = nickname;
+        this.password = password;
+        this.phone = phone;
+        this.auth = auth;
+    }
 }

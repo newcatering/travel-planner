@@ -3,8 +3,8 @@ package com.planner.trip.controller;
 import com.planner.trip.code.Auth;
 import com.planner.trip.code.ResultCode;
 import com.planner.trip.config.security.JwtManager;
-import com.planner.trip.model.JwtAuthenticationResponse;
-import com.planner.trip.model.Result;
+import com.planner.trip.payload.JwtAuthenticationResponse;
+import com.planner.trip.payload.Result;
 import com.planner.trip.model.User;
 import com.planner.trip.repository.UserRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
